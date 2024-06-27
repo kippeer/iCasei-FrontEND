@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Microfrontends Shell</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    nav {
+      margin-bottom: 20px;
+    }
+    iframe {
+      width: 100%;
+      height: 80vh;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>Microfrontends Shell</h1>
+  <nav>
+    <button onclick="loadDrawer()">MF Drawer</button>
+    <button onclick="loadVideos()">MF Videos</button>
+  </nav>
+  <iframe id="microfrontend-frame" src=""></iframe>
+
+  <script>
+    function loadDrawer() {
+      document.getElementById('microfrontend-frame').src = 'http://localhost:3001';
+    }
+
+    function loadVideos() {
+      document.getElementById('microfrontend-frame').src = 'http://localhost:3002';
+    }
+  </script>
+</body>
+</html>

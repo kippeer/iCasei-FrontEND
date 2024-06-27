@@ -82,9 +82,10 @@ json
     // Outros vídeos...
   ]
 }
+
+----------------------------------------------------------
 Testes
 Os testes unitários podem ser executados com:
 
 
------------------------------------------------------
 npm test
