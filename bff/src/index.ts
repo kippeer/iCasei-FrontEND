@@ -1,7 +1,10 @@
 import express from 'express';
 import cors from 'cors';
+import dotenv from 'dotenv';
 import youtubeRoutes from './routes/youtube';
 import favoritesRoutes from './routes/favorites';
+
+dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
