@@ -1,5 +1,5 @@
 {
-  "name": "bff-youtube-api",
+  "name": "bff",
   "version": "1.0.0",
   "description": "Backend For Frontend (BFF) para integração com a API do YouTube",
   "main": "index.js",
