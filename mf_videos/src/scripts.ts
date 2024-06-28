@@ -55,16 +55,19 @@ function renderVideos(videoItems: YouTubeVideoDTO[]) {
   }
 }
 
-function toggleFavorite(video: YouTubeVideoDTO) {
+// Função para alternar o estado de favorito e enviar para o servidor
+async function toggleFavorite(video: YouTubeVideoDTO) {
   if (video.favoriteState === 'default' || video.favoriteState === 'inactive') {
     video.favoriteState = 'active';
     video.favorite = true; // Marcar como favorito
+    await addFavoriteToServer(video); // Envia POST para adicionar aos favoritos
   } else {
     video.favoriteState = 'inactive';
     video.favorite = false; // Desmarcar como favorito
+    await removeFavoriteFromServer(video.id); // Envia DELETE para remover dos favoritos
   }
-  addFavoriteToServer(video); // Envia os favoritos atualizados para o servidor
 }
+
 const video: YouTubeVideoDTO = {
   id: 'abc123',
   title: 'Título do Vídeo',
