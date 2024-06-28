@@ -1,14 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MF Videos</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vídeos do YouTube</title>
+<style>
+  /* Estilos opcionais para layout */
+  .video-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  .video-item {
+    width: 300px;
+    border: 1px solid #ccc;
+    padding: 10px;
+  }
+  .video-thumbnail {
+    width: 100%;
+  }
+</style>
 </head>
 <body>
-  <input type="text" id="search-query" placeholder="Search videos">
-  <button id="search-button">Search</button>
-  <div id="videos"></div>
-  <script src="index.js"></script>
+<div class="video-container" id="video-list">
+  <!-- Aqui os vídeos serão inseridos dinamicamente -->
+</div>
+
+<script>
+  // Função para fazer a requisição HTTP e renderizar os vídeos
+  async function fetchVideos() {
+    try {
+      const response = await fetch('http://localhost:3000/api/youtube/videos');
+      const videos = await response.json();
+      renderVideos(videos);
+    } catch (error) {
+      console.error('Erro ao buscar vídeos:', error);
+    }
+  }
+
+  // Função para renderizar os vídeos na página
+  function renderVideos(videos) {
+    const videoContainer = document.getElementById('video-list');
+    videos.items.forEach(video => {
+      const { title, thumbnails } = video.snippet;
+      const videoItem = document.createElement('div');
+      videoItem.classList.add('video-item');
+      videoItem.innerHTML = `
+        <h2>${title}</h2>
+        <a href="https://www.youtube.com/watch?v=${video.id.videoId}" target="_blank">
+          <img class="video-thumbnail" src="${thumbnails.medium.url}" alt="${title}">
+        </a>
+      `;
+      videoContainer.appendChild(videoItem);
+    });
+  }
+
+  // Chamada para buscar e renderizar os vídeos ao carregar a página
+  window.onload = function() {
+    fetchVideos();
+  };
+</script>
 </body>
 </html>
