@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,17 +13,20 @@
       margin: 0;
       padding: 20px;
     }
+
     .search-container {
       display: flex;
       justify-content: center;
       margin-bottom: 20px;
     }
+
     #search-input {
       width: 300px;
       padding: 10px;
       border: 1px solid #ccc;
       border-radius: 4px 0 0 4px;
     }
+
     #search-button {
       padding: 10px;
       border: 1px solid #ccc;
@@ -32,15 +36,18 @@
       color: white;
       cursor: pointer;
     }
+
     #search-button:hover {
       background-color: #0056b3;
     }
+
     .video-container {
       display: flex;
       flex-wrap: wrap;
       gap: 20px;
       justify-content: center;
     }
+
     .video-item {
       width: 300px;
       border: 1px solid #ccc;
@@ -53,30 +60,37 @@
       flex-direction: column;
       align-items: center;
     }
+
     .video-item:hover {
       transform: translateY(-5px);
     }
+
     .video-thumbnail {
       width: 100%;
       border-radius: 4px;
     }
+
     .video-title {
       font-size: 1.1rem;
       margin: 10px 0;
       text-align: center;
-      min-height: 3em; /* Define a altura mínima para o título */
+      min-height: 3em;
+      /* Define a altura mínima para o título */
       display: flex;
       align-items: center;
       justify-content: center;
     }
+
     .video-link {
       text-decoration: none;
       color: #333;
       width: 100%;
     }
+
     .video-link:hover {
       color: #555;
     }
+
     .favorite-button {
       background: none;
       border: none;
@@ -86,11 +100,13 @@
       color: #ccc;
       transition: color 0.3s;
     }
+
     .favorite-button.active {
       color: #ff0;
     }
   </style>
 </head>
+
 <body>
   <div>MF_VIDEOS</div>
   <div class="search-container">
@@ -103,7 +119,16 @@
 
   <script src="scripts.js"></script>
   <script>
-    // Função para buscar os vídeos do YouTube usando fetch e renderizá-los
+    const searchButton = document.getElementById('search-button');
+    searchButton.addEventListener('click', () => {
+      const searchInput = document.getElementById('search-input');
+      const query = searchInput.value.trim();
+      if (query !== '') {
+        fetchVideos(query);
+      } else {
+        fetchVideos(); // Se não houver query, busca os vídeos padrão
+      }
+    });
     async function fetchVideos(query = '') {
       try {
         let url = 'http://localhost:3000/api/youtube/videos';
@@ -115,7 +140,9 @@
         const videoItems = videos.items.map(video => ({
           id: video.id.videoId,
           title: video.snippet.title,
-          thumbnailUrl: video.snippet.thumbnails.medium.url
+          thumbnailUrl: video.snippet.thumbnails.medium.url,
+          favorite: false, // Inicialmente não é favorito
+          favoriteState: 'default' // Estado padrão do botão
         }));
         renderVideos(videoItems);
       } catch (error) {
@@ -123,45 +150,104 @@
       }
     }
 
-    // Função para renderizar os vídeos na página
+    let favoritos = []; // Array para armazenar os vídeos marcados como favoritos
+    const localStorageKey = 'youtube_favoritos'; // Chave para armazenamento local
+
+    // Verifica se há favoritos armazenados no localStorage ao iniciar
+    const storedFavorites = localStorage.getItem(localStorageKey);
+    if (storedFavorites) {
+      favoritos = JSON.parse(storedFavorites);
+    }
+
     function renderVideos(videoItems) {
       const videoContainer = document.getElementById('video-list');
       videoContainer.innerHTML = '';
       videoItems.forEach(video => {
+        const isFavorite = favoritos.some(fav => fav.id === video.id);
+        const favoriteState = isFavorite ? 'active' : 'default';
         const videoItem = document.createElement('div');
         videoItem.classList.add('video-item');
         videoItem.innerHTML = `
-          <h2 class="video-title">${video.title}</h2>
-          <a class="video-link" href="https://www.youtube.com/watch?v=${video.id}" target="_blank">
-            <img class="video-thumbnail" src="${video.thumbnailUrl}" alt="${video.title}">
-          </a>
-          <button class="favorite-button"><i class="fas fa-star"></i></button>
-        `;
+      <h2 class="video-title">${video.title}</h2>
+      <a class="video-link" href="https://www.youtube.com/watch?v=${video.id}" target="_blank">
+        <img class="video-thumbnail" src="${video.thumbnailUrl}" alt="${video.title}">
+      </a>
+      <button class="favorite-button ${favoriteState}"><i class="fas fa-star"></i></button>
+    `;
         videoContainer.appendChild(videoItem);
 
         const favoriteButton = videoItem.querySelector('.favorite-button');
-        favoriteButton.addEventListener('click', () => {
-          favoriteButton.classList.toggle('active');
+        favoriteButton.addEventListener('click', async () => {
+          try {
+            if (favoriteButton.classList.contains('active')) {
+              // Remove dos favoritos
+              favoritos = favoritos.filter(fav => fav.id !== video.id);
+              favoriteButton.classList.remove('active');
+              favoriteButton.classList.add('default');
+            } else {
+              // Adiciona aos favoritos
+              favoritos.push(video);
+              favoriteButton.classList.remove('default');
+              favoriteButton.classList.add('active');
+            }
+
+            // Atualiza os botões de favorito
+            updateFavoriteButtons();
+
+            // Salva os favoritos no localStorage
+            saveFavoritesLocally();
+
+            // Envia a lista atualizada de favoritos para o backend
+            await updateBackendFavorites();
+          } catch (error) {
+            console.error('Erro ao gerenciar favorito:', error);
+          }
         });
       });
     }
 
-    // Chamada para buscar e renderizar os vídeos ao carregar a página
-    window.onload = function() {
-      fetchVideos();
-    };
+    function updateFavoriteButtons() {
+      const favoriteButtons = document.querySelectorAll('.favorite-button');
+      favoriteButtons.forEach(button => {
+        const videoId = button.parentElement.querySelector('.video-link').getAttribute('href').split('?v=')[1];
+        const isFavorite = favoritos.some(fav => fav.id === videoId);
+        button.classList.remove('active', 'inactive');
+        button.classList.add(isFavorite ? 'active' : 'default');
+      });
+    }
 
-    // Event listener para o botão de pesquisa
-    const searchButton = document.getElementById('search-button');
-    searchButton.addEventListener('click', () => {
-      const searchInput = document.getElementById('search-input');
-      const query = searchInput.value.trim();
-      if (query !== '') {
-        fetchVideos(query);
-      } else {
-        fetchVideos(); // Se não houver query, busca os vídeos padrão
+    async function updateBackendFavorites() {
+      try {
+        const response = await fetch('http://localhost:3000/api/youtube/favoritos', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            videos: favoritos
+          }),
+        });
+        if (!response.ok) {
+          console.error('Erro ao atualizar favoritos no backend:', response.status);
+        }
+      } catch (error) {
+        console.error('Erro ao atualizar favoritos no backend:', error);
       }
+    }
+
+    function saveFavoritesLocally() {
+      localStorage.setItem(localStorageKey, JSON.stringify(favoritos));
+    }
+
+    document.getElementById('search-button').addEventListener('click', () => {
+      const query = document.getElementById('search-input').value;
+      fetchVideos(query);
     });
+
+    // Carrega vídeos inicialmente ao carregar a página
+    fetchVideos();
+
   </script>
 </body>
+
 </html>
