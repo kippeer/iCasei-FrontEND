@@ -1,65 +1,167 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vídeos do YouTube</title>
-<style>
-  /* Estilos opcionais para layout */
-  .video-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-  }
-  .video-item {
-    width: 300px;
-    border: 1px solid #ccc;
-    padding: 10px;
-  }
-  .video-thumbnail {
-    width: 100%;
-  }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vídeos do YouTube</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      margin: 0;
+      padding: 20px;
+    }
+    .search-container {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    #search-input {
+      width: 300px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px 0 0 4px;
+    }
+    #search-button {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-left: none;
+      border-radius: 0 4px 4px 0;
+      background-color: #007BFF;
+      color: white;
+      cursor: pointer;
+    }
+    #search-button:hover {
+      background-color: #0056b3;
+    }
+    .video-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+    .video-item {
+      width: 300px;
+      border: 1px solid #ccc;
+      background-color: #fff;
+      padding: 10px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .video-item:hover {
+      transform: translateY(-5px);
+    }
+    .video-thumbnail {
+      width: 100%;
+      border-radius: 4px;
+    }
+    .video-title {
+      font-size: 1.1rem;
+      margin: 10px 0;
+      text-align: center;
+      min-height: 3em; /* Define a altura mínima para o título */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .video-link {
+      text-decoration: none;
+      color: #333;
+      width: 100%;
+    }
+    .video-link:hover {
+      color: #555;
+    }
+    .favorite-button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      margin-top: 10px;
+      font-size: 1.5rem;
+      color: #ccc;
+      transition: color 0.3s;
+    }
+    .favorite-button.active {
+      color: #ff0;
+    }
+  </style>
 </head>
 <body>
-<div class="video-container" id="video-list">
-  <!-- Aqui os vídeos serão inseridos dinamicamente -->
-</div>
+  <div>MF_VIDEOS</div>
+  <div class="search-container">
+    <input type="text" id="search-input" placeholder="Pesquisar vídeos">
+    <button id="search-button">Pesquisar</button>
+  </div>
+  <div class="video-container" id="video-list">
+    <!-- Aqui os vídeos serão inseridos dinamicamente -->
+  </div>
 
-<script>
-  // Função para fazer a requisição HTTP e renderizar os vídeos
-  async function fetchVideos() {
-    try {
-      const response = await fetch('http://localhost:3000/api/youtube/videos');
-      const videos = await response.json();
-      renderVideos(videos);
-    } catch (error) {
-      console.error('Erro ao buscar vídeos:', error);
+  <script src="scripts.js"></script>
+  <script>
+    // Função para buscar os vídeos do YouTube usando fetch e renderizá-los
+    async function fetchVideos(query = '') {
+      try {
+        let url = 'http://localhost:3000/api/youtube/videos';
+        if (query) {
+          url += `?query=${encodeURIComponent(query)}`;
+        }
+        const response = await fetch(url);
+        const videos = await response.json();
+        const videoItems = videos.items.map(video => ({
+          id: video.id.videoId,
+          title: video.snippet.title,
+          thumbnailUrl: video.snippet.thumbnails.medium.url
+        }));
+        renderVideos(videoItems);
+      } catch (error) {
+        console.error('Erro ao buscar vídeos:', error);
+      }
     }
-  }
 
-  // Função para renderizar os vídeos na página
-  function renderVideos(videos) {
-    const videoContainer = document.getElementById('video-list');
-    videos.items.forEach(video => {
-      const { title, thumbnails } = video.snippet;
-      const videoItem = document.createElement('div');
-      videoItem.classList.add('video-item');
-      videoItem.innerHTML = `
-        <h2>${title}</h2>
-        <a href="https://www.youtube.com/watch?v=${video.id.videoId}" target="_blank">
-          <img class="video-thumbnail" src="${thumbnails.medium.url}" alt="${title}">
-        </a>
-      `;
-      videoContainer.appendChild(videoItem);
+    // Função para renderizar os vídeos na página
+    function renderVideos(videoItems) {
+      const videoContainer = document.getElementById('video-list');
+      videoContainer.innerHTML = '';
+      videoItems.forEach(video => {
+        const videoItem = document.createElement('div');
+        videoItem.classList.add('video-item');
+        videoItem.innerHTML = `
+          <h2 class="video-title">${video.title}</h2>
+          <a class="video-link" href="https://www.youtube.com/watch?v=${video.id}" target="_blank">
+            <img class="video-thumbnail" src="${video.thumbnailUrl}" alt="${video.title}">
+          </a>
+          <button class="favorite-button"><i class="fas fa-star"></i></button>
+        `;
+        videoContainer.appendChild(videoItem);
+
+        const favoriteButton = videoItem.querySelector('.favorite-button');
+        favoriteButton.addEventListener('click', () => {
+          favoriteButton.classList.toggle('active');
+        });
+      });
+    }
+
+    // Chamada para buscar e renderizar os vídeos ao carregar a página
+    window.onload = function() {
+      fetchVideos();
+    };
+
+    // Event listener para o botão de pesquisa
+    const searchButton = document.getElementById('search-button');
+    searchButton.addEventListener('click', () => {
+      const searchInput = document.getElementById('search-input');
+      const query = searchInput.value.trim();
+      if (query !== '') {
+        fetchVideos(query);
+      } else {
+        fetchVideos(); // Se não houver query, busca os vídeos padrão
+      }
     });
-  }
-
-  // Chamada para buscar e renderizar os vídeos ao carregar a página
-  window.onload = function() {
-    fetchVideos();
-  };
-</script>
+  </script>
 </body>
 </html>
-//ponto
