@@ -3,22 +3,22 @@ body {
     background-color: #f0f0f0;
     margin: 0;
     padding: 20px;
-  }
-  
-  .search-container {
+}
+
+.search-container {
     display: flex;
     justify-content: center;
     margin-bottom: 20px;
-  }
-  
-  #search-input {
+}
+
+#search-input {
     width: 300px;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px 0 0 4px;
-  }
-  
-  #search-button {
+}
+
+#search-button {
     padding: 10px;
     border: 1px solid #ccc;
     border-left: none;
@@ -26,20 +26,20 @@ body {
     background-color: #007BFF;
     color: white;
     cursor: pointer;
-  }
-  
-  #search-button:hover {
+}
+
+#search-button:hover {
     background-color: #0056b3;
-  }
-  
-  .video-container {
+}
+
+.video-container {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
     justify-content: center;
-  }
-  
-  .video-item {
+}
+
+.video-item {
     width: 300px;
     border: 1px solid #ccc;
     background-color: #fff;
@@ -50,18 +50,18 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-  }
-  
-  .video-item:hover {
+}
+
+.video-item:hover {
     transform: translateY(-5px);
-  }
-  
-  .video-thumbnail {
+}
+
+.video-thumbnail {
     width: 100%;
     border-radius: 4px;
-  }
-  
-  .video-title {
+}
+
+.video-title {
     font-size: 1.1rem;
     margin: 10px 0;
     text-align: center;
@@ -69,19 +69,19 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-  }
-  
-  .video-link {
+}
+
+.video-link {
     text-decoration: none;
     color: #333;
     width: 100%;
-  }
-  
-  .video-link:hover {
+}
+
+.video-link:hover {
     color: #555;
-  }
-  
-  .favorite-button {
+}
+
+.favorite-button {
     background: none;
     border: none;
     cursor: pointer;
@@ -89,9 +89,8 @@ body {
     font-size: 1.5rem;
     color: #ccc;
     transition: color 0.3s;
-  }
-  
-  .favorite-button.active {
+}
+
+.favorite-button.active {
     color: #ff0;
-  }
-  
+}
