@@ -50,6 +50,10 @@ Execute o contêiner:
 -----------------------------------------------------
 docker run -p 3000:3000 -d bff
 
+Ao rodar a imagem no docker nao esqueça de configurar o ambiente com
+
+YOUTUBE_API_KEY=suachave
+
 -----------------------------------------------------
 Uso
 Endpoint da API
