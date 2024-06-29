@@ -20,6 +20,7 @@ No diretório do projeto, você pode executar os seguintes comandos:
 npm start:
 
 Executa o aplicativo em modo de produção.
+
 Abra http://localhost:8081 para visualizá-lo no navegador.
 
 
