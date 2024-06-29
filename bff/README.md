@@ -21,8 +21,11 @@ npm install
 
 
 axios: axios@0.21.4
+
 dotenv: dotenv@10.0.0
+
 express: express@4.17.1
+
 cors: cors@2.8.5
 
 ## Configuração
