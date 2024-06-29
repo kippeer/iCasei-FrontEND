@@ -13,7 +13,7 @@ Clone o repositório e instale as dependências necessárias.
 "axios": "^0.21.1",
 "dotenv": "^10.0.0",
 "express": "^4.17.1"
-
+"cors": "^2.8.5"
 -----------------------------------------------------
 cd bff
 npm install
