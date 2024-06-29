@@ -17,7 +17,10 @@ PORT=8081 # Porta em que o servidor será executado. No caso do "mf_drawer", con
 
 # Iniciando:
 No diretório do projeto, você pode executar os seguintes comandos:
-npm start: Executa o aplicativo em modo de produção. Abra http://localhost:8081 para visualizá-lo no navegador.
+npm start:
+
+Executa o aplicativo em modo de produção.
+Abra http://localhost:8081 para visualizá-lo no navegador.
 
 
 # Docker:
