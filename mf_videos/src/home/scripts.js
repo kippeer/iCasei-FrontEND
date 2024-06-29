@@ -50,22 +50,25 @@ document.addEventListener('DOMContentLoaded', async () => {
         const videoContainer = document.getElementById('video-list');
         videoContainer.innerHTML = '';
         for (const video of videoItems) {
-            const response = await fetch('components/video-item.html');
-            const template = await response.text();
             const videoElement = document.createElement('div');
-            videoElement.innerHTML = template.trim();
-            const videoItem = videoElement.firstChild;
+            videoElement.classList.add('video-item');
 
-            const isFavorite = favoritos.some(fav => fav.id === video.id);
-            const favoriteState = isFavorite ? 'active' : 'default';
+            // Estrutura do item de vídeo
+            videoElement.innerHTML = `
+                <div class="video-content">
+                    <div class="video-thumbnail">
+                        <iframe width="300" height="200" src="https://www.youtube.com/embed/${video.id}" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <h3 class="video-title">${video.title}</h3>
+                    <div class="space"></div>
+                    <button class="favorite-button ${video.favorite ? 'active' : 'default'}" data-video-id="${video.id}" data-title="${video.title}" data-thumbnail="${video.thumbnailUrl}">
+                        <i class="fas fa-star"></i>
+                    </button>
+                </div>
+            `;
 
-            videoItem.querySelector('.video-title').textContent = video.title;
-            const videoLink = videoItem.querySelector('.video-link');
-            videoLink.href = `https://www.youtube.com/watch?v=${video.id}`;
-            videoItem.querySelector('.video-thumbnail').src = video.thumbnailUrl;
-
-            const favoriteButton = videoItem.querySelector('.favorite-button');
-            favoriteButton.classList.add(favoriteState);
+            // Adicionar evento ao botão de favorito
+            const favoriteButton = videoElement.querySelector('.favorite-button');
             favoriteButton.addEventListener('click', async () => {
                 try {
                     if (favoriteButton.classList.contains('active')) {
@@ -77,25 +80,19 @@ document.addEventListener('DOMContentLoaded', async () => {
                         favoriteButton.classList.remove('default');
                         favoriteButton.classList.add('active');
                     }
-                    updateFavoriteButtons();
                     saveFavoritesLocally();
                     await updateBackendFavorites();
                 } catch (error) {
                     console.error('Erro ao gerenciar favorito:', error);
                 }
             });
-            videoContainer.appendChild(videoItem);
+
+            videoContainer.appendChild(videoElement);
         }
     }
 
-    function updateFavoriteButtons() {
-        const favoriteButtons = document.querySelectorAll('.favorite-button');
-        favoriteButtons.forEach(button => {
-            const videoId = button.parentElement.querySelector('.video-link').getAttribute('href').split('?v=')[1];
-            const isFavorite = favoritos.some(fav => fav.id === videoId);
-            button.classList.remove('active', 'inactive');
-            button.classList.add(isFavorite ? 'active' : 'default');
-        });
+    function saveFavoritesLocally() {
+        localStorage.setItem(localStorageKey, JSON.stringify(favoritos));
     }
 
     async function updateBackendFavorites() {
@@ -117,11 +114,5 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     }
 
-    function saveFavoritesLocally() {
-        localStorage.setItem(localStorageKey, JSON.stringify(favoritos));
-    }
-
     fetchVideos();
 });
-
-//ponto
