@@ -27,13 +27,12 @@ O servidor será iniciado em http://localhost:8080 por padrão.
 
 - **Express**: Utilizado para configurar e executar o servidor HTTP.
 
-"express" versão "@4.19.2"
+express v4.19.2
 
----------------------------------------------------------------------------------------
 
-Este projeto pode ser executado em um contêiner Docker. Certifique-se de ter o Docker instalado localmente. Para construir e executar a imagem Docker, utilize os seguintes comandos:
 
 # Construir a imagem Docker:
+Este projeto pode ser executado em um contêiner Docker. Certifique-se de ter o Docker instalado localmente. Para construir e executar a imagem Docker, utilize os seguintes comandos:
 
 docker build -t mf_videos .
 
