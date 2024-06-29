@@ -12,6 +12,9 @@
     "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "engines": {
+    "node": ">=19.6.0"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC"

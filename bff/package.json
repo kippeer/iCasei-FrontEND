@@ -19,6 +19,9 @@
     "nodemon": "^2.0.12",
     "supertest": "^7.0.0"
   },
+  "engines": {
+    "node": ">=19.6.0"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC"
