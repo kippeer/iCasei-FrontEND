@@ -1,81 +1,85 @@
-Backend For Frontend (BFF) com Node.js e API do YouTube
+# Backend For Frontend (BFF) com Node.js e API do YouTube
+
 Este é um projeto de Backend For Frontend (BFF) desenvolvido em Node.js para intermediar requisições entre microfrontends e a API do YouTube.
 
-Pré-requisitos
+## Pré-requisitos
+
 Antes de iniciar, certifique-se de ter o seguinte instalado em seu ambiente de desenvolvimento:
 
-Node.js versão :  v19.6.0
-npm (gerenciador de pacotes do Node.js)
-Docker (opcional, para execução em contêineres)
-Instalação
+- Node.js versão 19.6.0
+- npm (gerenciador de pacotes do Node.js)
+- Docker (opcional, para execução em contêineres)
+
+## Instalação
+
 Clone o repositório e instale as dependências necessárias.
 
-"axios": "^0.21.1",
-"dotenv": "^10.0.0",
-"express": "^4.17.1"
-"cors": "^2.8.5"
------------------------------------------------------
 cd bff
 npm install
-Configuração
 
------------------------------------------------------
+## Dependências
+
+{
+  "axios": "^0.21.1",
+  "dotenv": "^10.0.0",
+  "express": "^4.17.1",
+  "cors": "^2.8.5"
+}
+
+## Configuração
 
 Crie um arquivo .env na raiz do projeto e adicione suas variáveis de ambiente.
-em .env adicione:
 
-YOUTUBE_API_KEY=SuaChaveDeAPIAqui              //nao utilizar ""
+YOUTUBE_API_KEY=SuaChaveDeAPIAqui
+
 Substitua SuaChaveDeAPIAqui pela sua chave de API do YouTube.
 
-Caso nao possua uma chave crie em https://console.cloud.google.com/apis/credentials/key/
+Caso não possua uma chave, crie em https://console.cloud.google.com/apis/credentials/key/ e restrinja a chave para YouTube Data API v3.
 
-Restrinja a chave para YouTube Data API v3
------------------------------------------
-Execução
+## Execução
+
 Para iniciar o servidor localmente:
 
-
 npm start
+
 O servidor será iniciado na porta 3000 por padrão.
 
-Docker
+## Docker
+
 Se preferir executar em um contêiner Docker:
 
 Construa a imagem Docker:
 
------------------------------------------------------
 docker build -t bff .
+
 Execute o contêiner:
 
------------------------------------------------------
 docker run -p 3000:3000 -d bff
 
-Ao rodar a imagem no docker nao esqueça de configurar o ambiente com
+Ao rodar a imagem no Docker, não esqueça de configurar o ambiente com:
 
-YOUTUBE_API_KEY=suachave
+YOUTUBE_API_KEY=SuaChaveDeAPIAqui
 
------------------------------------------------------
-Uso
-Endpoint da API
+## Uso
+
+### Endpoint da API
+
 GET /api/youtube/videos
+
 Retorna uma lista de vídeos do YouTube baseado na query fornecida.
+
 Exemplo de requisição:
 
+Retorna vídeos aleatórios:
+http://localhost:3000/api/youtube/videos
 
-Retorna videos aleatorios
-http://localhost:3000/api/youtube/videos 
-
-
-
-Retorna videos especificos onde //   ?query=exemplo video
-
+Retorna vídeos específicos onde ?query=exemplo video
 GET http://localhost:3000/api/youtube/videos?query=joji
 
-nesse exemplo retorna videos do joji
+Nesse exemplo, retorna vídeos do Joji.
 
-Resposta
-json
------------------------------------------------------
+### Resposta
+
 {
   "items": [
     {
@@ -87,17 +91,15 @@ json
   ]
 }
 
-----------------------------------------------------------
-Testes
-Os testes unitários podem ser executados com:
+## Testes
 
+Os testes unitários podem ser executados com:
 
 npm test
 
+## Notas
 
-----------------------------
-CERTIFIQUE-SE DA PORTA 3000 ESTAR LIVRE ANTES DE RODAR A APLICAÇÃO
-CERTIFIQUE-SE DE ESTAR NA PASTA bff PARA RODAR O npm install e o npm start
+- Certifique-se de que a porta 3000 esteja livre antes de rodar a aplicação.
+- Certifique-se de estar na pasta bff para rodar npm install e npm start.
 
-
-ESSA APLICAÇÃO É O BACKEND PARA mf_drawer e mf_videos
+Essa aplicação é o backend para mf_drawer e mf_videos.
