@@ -1,5 +1,7 @@
 body{
     background: linear-gradient(135deg, #f8f7f7, #0945eb);
+    height: 100%;
+    
 }
 .search-container {
     display: flex;
