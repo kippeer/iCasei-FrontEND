@@ -51,7 +51,8 @@ O servidor estará acessível em http://localhost:8080 dentro do contêiner Dock
 
 caso altere o localhost do docker , lembrar de alterar a do projeto
 -----------------------------------------------------------------------------------------------
-
+CERTIFIQUE-SE QUE A PORTA 8080 ESTEJA LIVRE ANTES DE EXECUTAR
+CERTIFIQUE-SE DE ESTAR NA PASTA mf_videos PARA OS COMANDOS npm install e npm start
 O PROJETO USA O BACKEND DO BFF É OBRIGATORIO O USO DO BFF PARA O FUNCIONAMENTO DO PROJETO
 
 COM O BFF RODANDO , VOCÊ PODE UTILIZAR DESSA APLICAÇÂO
