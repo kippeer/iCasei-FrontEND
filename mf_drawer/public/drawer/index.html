@@ -1,16 +1,23 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MF_DRAWER</title>
-  <link rel="stylesheet" href="styles.css"> <!-- Opcional, se desejar estilizar -->
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="container">
+  <div class="sidebar">
     <button id="videosBtn">VÍDEOS</button>
-    <button id="favoritesBtn">FAVORITOS</button>
+    <button id="favoritesBtn">
+      FAVORITOS
+      <span id="favoritesCounter">0</span>
+    </button>
+    
+  </div>
+
+  <div class="content">
+    <!-- Conteúdo principal aqui -->
   </div>
 
   <script src="scripts.js"></script>

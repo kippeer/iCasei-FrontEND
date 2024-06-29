@@ -1,0 +1,96 @@
+/* styles.css */
+
+/* Estilo para o body e estrutura flexível */
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    margin: 0;
+    height: 100vh;
+    /* Ajusta a altura da página inteira */
+}
+
+/* Estilo para a barra lateral (sidebar) */
+.sidebar {
+    width: 200px;
+    /* Largura padrão da barra lateral */
+    background-color: #f0f0f0;
+    padding: 20px;
+    box-sizing: border-box;
+    border-right: 1px solid #ccc;
+    /* Linha de separação à direita */
+
+    /* Media query para dispositivos menores */
+    @media (max-width: 768px) {
+        width: 100%;
+        /* Largura total na tela menor */
+        border-right: none;
+        /* Remove a borda direita na tela menor */
+        border-bottom: 1px solid #ccc;
+        /* Adiciona uma borda inferior */
+        position: fixed;
+        /* Fixa a barra lateral */
+        top: 0;
+        /* Alinha no topo */
+        left: 0;
+        /* Alinha à esquerda */
+        z-index: 1;
+        /* Coloca acima do conteúdo */
+        overflow-y: auto;
+        /* Adiciona rolagem vertical se necessário */
+        height: 100vh;
+        /* Ocupa a altura total da tela */
+    }
+}
+
+/* Estilo para os botões dentro da barra lateral */
+.sidebar button {
+    display: block;
+    width: 100%;
+    /* Botões ocupam toda a largura da barra lateral */
+    padding: 10px;
+    margin-bottom: 10px;
+    /* Espaçamento entre os botões */
+    text-align: center;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
+
+/* Estilo para o conteúdo principal */
+.content {
+    flex: 1;
+    /* O conteúdo principal ocupa o espaço restante */
+    padding: 20px;
+}
+
+/* styles.css */
+
+/* Estilo para o contador */
+#favoritesCounter {
+    background-color: red;
+    /* Cor de fundo da bola */
+    color: white;
+    /* Cor do texto dentro da bola */
+    border-radius: 50%;
+    /* Formato de círculo */
+    padding: 4px 8px;
+    /* Espaçamento interno */
+    font-size: 12px;
+    /* Tamanho da fonte */
+    position: absolute;
+    /* Posição absoluta em relação ao botão */
+    bottom: 16px;
+    /* Coloca no canto inferior */
+    right: 17px;
+    /* Coloca no canto direito */
+    transform: translate(50%, 50%);
+    /* Ajusta para o canto inferior direito */
+}
+
+/* Estilo para o botão FAVORITOS */
+.sidebar #favoritesBtn {
+    position: relative;
+    /* Necessário para o posicionamento absoluto do contador */
+    overflow: visible;
+    /* Permite que o contador apareça fora do botão */
+}
