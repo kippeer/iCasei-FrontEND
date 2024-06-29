@@ -41,6 +41,9 @@ docker run -p 8080:8080 mf_videos
 
 O servidor estará acessível em http://localhost:8080 dentro do contêiner Docker.
 
+http://localhost:8080/home/
+http://localhost:8080/favoritos/
+
 # Observações importantes
 
 Certifique-se que a porta 8080 esteja livre antes de executar. Certifique-se de estar na pasta `mf_videos` para os comandos `npm install` e `npm start`.
