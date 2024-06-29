@@ -97,7 +97,7 @@ npm test
 
 ----------------------------
 CERTIFIQUE-SE DA PORTA 3000 ESTAR LIVRE ANTES DE RODAR A APLICAÇÃO
-CERTIFIQUESSE DE ESTAR NA PASTA bff PARA RODAR O npm install e o npm start
+CERTIFIQUE-SE DE ESTAR NA PASTA bff PARA RODAR O npm install e o npm start
 
 
 ESSA APLICAÇÃO É O BACKEND PARA mf_drawer e mf_videos
