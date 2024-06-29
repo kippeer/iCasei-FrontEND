@@ -30,7 +30,6 @@ O servidor será iniciado em http://localhost:8080 por padrão.
 express v4.19.2
 
 
-
 # Construir a imagem Docker:
 Este projeto pode ser executado em um contêiner Docker. Certifique-se de ter o Docker instalado localmente. Para construir e executar a imagem Docker, utilize os seguintes comandos:
 
