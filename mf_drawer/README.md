@@ -15,10 +15,10 @@ npm install
 Certifique-se de configurar as seguintes variáveis de ambiente em um arquivo .env na raiz do projeto:
 PORT=8081 # Porta em que o servidor será executado. No caso do "mf_drawer", configurado para 8081.
 
-# Scripts Disponíveis:
+# Iniciando:
 No diretório do projeto, você pode executar os seguintes comandos:
 npm start: Executa o aplicativo em modo de produção. Abra http://localhost:8081 para visualizá-lo no navegador.
-npm test: Atualmente não há testes especificados para este projeto.
+
 
 # Docker:
 Para executar o aplicativo usando Docker, certifique-se de ter o Docker instalado e execute os seguintes comandos:
