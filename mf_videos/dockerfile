@@ -1,6 +1,20 @@
-FROM node:14-alpine
+# Use uma imagem base do Node.js
+FROM node:14
+
+# Defina o diretório de trabalho dentro do contêiner
 WORKDIR /app
-COPY package.json package-lock.json ./
+
+# Copie o package.json e package-lock.json para o diretório de trabalho
+COPY package*.json ./
+
+# Instale as dependências do projeto
 RUN npm install
+
+# Copie todos os arquivos do diretório atual para o diretório de trabalho no contêiner
 COPY . .
-CMD ["npx", "http-server", "src", "-p", "3001"]
+
+# Exponha a porta em que o servidor da sua aplicação está escutando
+EXPOSE 8080
+
+# Comando para iniciar sua aplicação
+CMD ["npm", "start"]
