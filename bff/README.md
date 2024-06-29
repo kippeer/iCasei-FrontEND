@@ -4,7 +4,7 @@ Este é um projeto de Backend For Frontend (BFF) desenvolvido em Node.js para in
 Pré-requisitos
 Antes de iniciar, certifique-se de ter o seguinte instalado em seu ambiente de desenvolvimento:
 
-Node.js 
+Node.js versão :  v19.6.0
 npm (gerenciador de pacotes do Node.js)
 Docker (opcional, para execução em contêineres)
 Instalação

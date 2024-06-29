@@ -6,7 +6,7 @@ Este é o shell principal que integra os microfrontends "mf_drawer" e "mf_videos
 Pré-requisitos
 Antes de iniciar, certifique-se de ter instalado:
 
-Node.js (versão LTS recomendada)
+Aplicação feita utilizando Node.JS v19.6.0
 Docker (opcional, se estiver usando Docker para os microfrontends)
 Configuração inicial
 

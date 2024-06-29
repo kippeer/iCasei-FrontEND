@@ -6,6 +6,8 @@ Este é um projeto Node.js utilizando Express para gerenciar um servidor que ser
 
 ### Instalação
 
+
+Aplicação feita utilizando Node.JS v19.6.0
 Para instalar as dependências do projeto, utilize o npm:
 
 

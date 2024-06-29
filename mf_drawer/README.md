@@ -4,7 +4,7 @@ Descrição
 
 Configuração
 Requisitos de Sistema
-Node.js (v14.x ou superior)
+Aplicação feita utilizando Node.JS v19.6.0
 Docker (opcional)
 Instalação das Dependências
 Para instalar as dependências do projeto, execute o seguinte comando no terminal:
