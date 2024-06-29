@@ -27,7 +27,7 @@ O servidor será iniciado em http://localhost:8080 por padrão.
 
 - **Express**: Utilizado para configurar e executar o servidor HTTP.
 
-"express": "^4.19.2"
+"express" versão "@4.19.2"
 
 ---------------------------------------------------------------------------------------
 
