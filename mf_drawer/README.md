@@ -21,7 +21,7 @@ npm start:
 
 Executa o aplicativo em modo de produção.
 
-Abra http://localhost:8081 para visualizá-lo no navegador.
+Abra http://localhost:8081/drawer para visualizá-lo no navegador.
 
 
 # Docker:
@@ -31,6 +31,6 @@ docker build -t mf_drawer .
 # Executar o contêiner Docker
 docker run -p 8081:8081 mf_drawer
 
-Isso iniciará o aplicativo dentro de um contêiner Docker, acessível em http://localhost:8081.
+Isso iniciará o aplicativo dentro de um contêiner Docker, acessível em http://localhost:8081/drawer.
 
 Certifique-se de que a porta 8081 esteja livre e que as aplicações BFF e MF_VIDEOS estejam rodando para integração adequada.
