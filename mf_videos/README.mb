@@ -50,3 +50,8 @@ docker run -p 8080:8080 mf_videos
 O servidor estará acessível em http://localhost:8080 dentro do contêiner Docker.
 
 caso altere o localhost do docker , lembrar de alterar a do projeto
+-----------------------------------------------------------------------------------------------
+
+O PROJETO USA O BACKEND DO BFF É OBRIGATORIO O USO DO BFF PARA O FUNCIONAMENTO DO PROJETO
+
+COM O BFF RODANDO , VOCÊ PODE UTILIZAR DESSA APLICAÇÂO
