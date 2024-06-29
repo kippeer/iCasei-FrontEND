@@ -1,0 +1,30 @@
+/* Estilos padrão para telas maiores */
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    height: 100vh;
+}
+
+/* Estilo para o sidebar */
+.sidebar {
+    flex: 0 0 25%; /* Ocupa 25% da largura disponível */
+    background-color: #f0f0f0;
+    padding: 20px;
+    box-sizing: border-box; /* Garante que o padding não aumente a largura */
+}
+
+/* Estilo para o conteúdo principal */
+.main-content {
+    flex: 1; /* Ocupa todo o espaço restante */
+    padding: 20px;
+    box-sizing: border-box; /* Garante que o padding não aumente a largura */
+    overflow-y: auto; /* Adiciona barra de rolagem vertical se necessário */
+}
+
+/* Media query para telas menores */
+@media (max-width: 768px) {
+    .sidebar {
+        flex: 0 0 100%; /* O sidebar ocupa 100% da largura disponível */
+    }
+}

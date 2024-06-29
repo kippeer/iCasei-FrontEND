@@ -1,16 +1,4 @@
-// scripts.js
-document.getElementById('videosBtn').addEventListener('click', function() {
-  window.location.href = 'http://localhost:8080/home';
-});
-
-document.getElementById('favoritesBtn').addEventListener('click', function() {
-  window.location.href = 'http://localhost:8080/favoritos';
-});
-
-
-// scripts.js
-
-let favoritesCount = -1; // Inicializa o contador de favoritos
+let favoritesCount = 0; // Inicializa o contador de favoritos como 0
 
 // Função para buscar o número atual de favoritos da API
 async function fetchFavoritesCount() {
@@ -36,8 +24,20 @@ function updateFavoritesCounter() {
 // Inicializa a página buscando o número inicial de favoritos
 fetchFavoritesCount();
 
-// Exemplo: Incrementar o contador manualmente (apenas para exemplo, pode ser ajustado conforme necessidade)
-document.getElementById('favoritesBtn').addEventListener('click', function() {
-  favoritesCount++;
-  updateFavoritesCounter();
+// Atualiza o contador a cada 10 segundos (10000 milissegundos)
+setInterval(fetchFavoritesCount, 100); // Atualiza a cada 10 segundos (10000 ms)
+
+// Evento de clique para o botão VÍDEOS
+document.getElementById('videosBtn').addEventListener('click', function() {
+  sendMessageToShell('videos'); // Envia uma mensagem para o shell principal carregar o microfrontend de vídeos
 });
+
+// Evento de clique para o botão FAVORITOS
+document.getElementById('favoritesBtn').addEventListener('click', function() {
+  sendMessageToShell('favoritos'); // Envia uma mensagem para o shell principal carregar o microfrontend de favoritos
+});
+
+// Função para enviar mensagem ao shell principal
+function sendMessageToShell(message) {
+  window.parent.postMessage(message, '*'); // Envie a mensagem para o shell principal (use '*' para o destinatário)
+}
