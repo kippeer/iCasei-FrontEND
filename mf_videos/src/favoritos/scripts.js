@@ -15,32 +15,33 @@ document.addEventListener('DOMContentLoaded', async () => {
     function renderFavoriteVideos(videos) {
         const videoContainer = document.getElementById('video-list');
         videoContainer.innerHTML = '';
-
+    
         videos.forEach(video => {
             const videoElement = document.createElement('div');
             videoElement.classList.add('video-item'); // Adicione suas classes necessárias aqui
-
+    
             // Estrutura do item de vídeo
             videoElement.innerHTML = `
                 <div class="video-content">
-                    <a class="video-link" href="https://www.youtube.com/watch?v=${video.id}">
-                        <img class="video-thumbnail" src="${video.thumbnailUrl}" alt="Thumbnail">
-                        <h3 class="video-title">${video.title}</h3>
-                    </a>
+                    <div class="video-thumbnail">
+                        <iframe width="300" height="200" src="https://www.youtube.com/embed/${video.id}" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <h3 class="video-title">${video.title}</h3>
                     <div class="space"></div>
                     <button class="favorite-button active" data-video-id="${video.id}" data-title="${video.title}" data-thumbnail="${video.thumbnailUrl}">
                         <i class="fas fa-star"></i>
                     </button>
                 </div>
             `;
-
+    
             // Adicionar evento ao botão de favorito
             const favoriteButton = videoElement.querySelector('.favorite-button');
             favoriteButton.addEventListener('click', () => deleteFromBackendFavorites(video.id));
-
+    
             videoContainer.appendChild(videoElement);
         });
     }
+    
 
     async function deleteFromBackendFavorites(videoId) {
         try {
