@@ -57,3 +57,6 @@ cd shell
 npm start
 
 o shell roda na porta [3003 ](http://localhost:3003/)
+
+
+OBS: A APLICAÇÃO USA CACHE LOCAL PARA ARMAZENAMENTO, É RECOMENDADO UTILIZAR O MODO ANONIMO OU LIMPAR O CACHE 
