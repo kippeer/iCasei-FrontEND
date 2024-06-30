@@ -46,6 +46,17 @@ Este microfrontend permite buscar e exibir vídeos do YouTube.
 cd mf_videos
 npm start
 O "mf_videos" estará acessível em http://localhost:8080.
+## Docker
+
+Se preferir executar em um contêiner Docker:
+
+Construa a imagem Docker:
+
+docker build -t shell .
+
+Execute o contêiner:
+
+docker run -p 3003:3003 -d shell
 
 # Observações
 Certifique-se de que todas as portas especificadas  estão disponíveis e não estão sendo utilizadas por outros serviços.
