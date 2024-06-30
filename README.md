@@ -18,7 +18,11 @@ Unificação dos três blocos principais (bff, mf_drawer, mf_videos) em uma inte
 # Observações Importantes:
 Cada pasta possui um README próprio com detalhes específicos sobre sua configuração e funcionalidades.
 Para uma configuração adequada e execução da aplicação, siga a ordem recomendada de leitura dos READMEs:
+
 BFF
+
 mf_drawer
+
 mf_videos
+
 shell
