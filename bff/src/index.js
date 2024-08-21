@@ -27,8 +27,5 @@ app.use((err, req, res, next) => {
   res.status(500).json({ error: 'Erro interno do servidor' });
 });
 
-// Iniciar o servidor
-app.listen(port, () => {
-  console.log(`Servidor BFF rodando em http://localhost:${port}`);
-});
+
 //pontoaa
