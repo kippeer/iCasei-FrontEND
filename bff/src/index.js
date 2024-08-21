@@ -1,6 +1,6 @@
 const express = require('express');
 const dotenv = require('dotenv');
-const cors = require('cors');
+const cors = require('cors'); // Importando o pacote CORS
 const youtubeRoutes = require('./routes/youtubeRoutes');
 const favoritosRoutes = require('./routes/favoritosRoutes');
 
