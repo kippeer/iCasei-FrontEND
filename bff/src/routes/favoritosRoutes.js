@@ -1,28 +1,20 @@
 const express = require('express');
 const router = express.Router();
-const { MongoClient } = require('mongodb');
-require('dotenv').config(); // Carrega as variáveis de ambiente do .env
-
-const client = new MongoClient(process.env.DATABASE_URL, { useNewUrlParser: true, useUnifiedTopology: true });
-
-async function connectDB() {
-  if (!client.isConnected()) {
-    await client.connect();
-  }
-  return client.db('youtube').collection('favoritos'); // Substitua 'your-db-name' pelo nome do seu banco de dados
-}
+const fs = require('fs').promises;
 
 // Rota para salvar favoritos
 router.post('/favoritos', async (req, res) => {
   try {
     const { videos } = req.body;
 
+    // Validação simples para verificar se videos é um array
     if (!Array.isArray(videos)) {
-      return res.status(400).json({ error: 'Formato inválido. Deve ser um array de vídeos.' });
+      return res.status(400).json({ error: 'Formato inválido. Deve ser um array de videos.' });
     }
 
-    const collection = await connectDB();
-    await collection.updateOne({}, { $set: { videos } }, { upsert: true });
+    // Aqui você pode implementar a lógica para salvar os favoritos no seu sistema
+    const dataToSave = JSON.stringify({ videos });
+    await fs.writeFile('favoritos.json', dataToSave);
 
     res.status(200).json({ message: 'Dados de favoritos salvos com sucesso.' });
   } catch (error) {
@@ -34,9 +26,9 @@ router.post('/favoritos', async (req, res) => {
 // Rota para obter favoritos
 router.get('/favoritos', async (req, res) => {
   try {
-    const collection = await connectDB();
-    const result = await collection.findOne({});
-    const { videos } = result || { videos: [] };
+    // Aqui você pode implementar a lógica para ler os favoritos do seu sistema
+    const data = await fs.readFile('favoritos.json', 'utf8');
+    const { videos } = JSON.parse(data);
 
     res.status(200).json({ videos });
   } catch (error) {
@@ -50,15 +42,20 @@ router.delete('/favoritos/:videoId', async (req, res) => {
   try {
     const { videoId } = req.params;
 
-    const collection = await connectDB();
-    const result = await collection.findOne({});
-    let { videos } = result || { videos: [] };
+    // Lógica para ler os favoritos atuais
+    const data = await fs.readFile('favoritos.json', 'utf8');
+    const { videos } = JSON.parse(data);
 
+    // Encontrar o índice do videoId na lista de favoritos
     const index = videos.findIndex(video => video.id === videoId);
 
     if (index !== -1) {
+      // Remover o videoId da lista de favoritos
       videos.splice(index, 1);
-      await collection.updateOne({}, { $set: { videos } });
+
+      // Salvar a lista atualizada de favoritos
+      const dataToSave = JSON.stringify({ videos });
+      await fs.writeFile('favoritos.json', dataToSave);
 
       res.status(200).json({ message: `Favorito ${videoId} removido com sucesso.` });
     } else {
