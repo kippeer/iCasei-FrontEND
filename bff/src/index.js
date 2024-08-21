@@ -2,11 +2,10 @@ const express = require('express');
 const dotenv = require('dotenv');
 const cors = require('cors'); // Importando o pacote CORS
 const youtubeRoutes = require('./routes/youtubeRoutes');
-const favoritosRoutes = require('./routes/favoritosRoutes'); // Importe as novas rotas de favoritos
+const favoritosRoutes = require('./routes/favoritosRoutes');
 
 dotenv.config();
 const app = express();
-const port = process.env.PORT || 3000;
 
 // Middleware para parsing de JSON
 app.use(express.json());
@@ -19,7 +18,7 @@ app.use(cors());
 app.use('/api/youtube', youtubeRoutes);
 
 // Rotas para Favoritos
-app.use('/api/youtube', favoritosRoutes); // Adicione as rotas de favoritos
+app.use('/api/favoritos', favoritosRoutes);
 
 // Middleware de tratamento de erros global
 app.use((err, req, res, next) => {
@@ -27,5 +26,4 @@ app.use((err, req, res, next) => {
   res.status(500).json({ error: 'Erro interno do servidor' });
 });
 
-
-//pontoaa
+module.exports = app;
