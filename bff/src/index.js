@@ -31,4 +31,4 @@ app.use((err, req, res, next) => {
 app.listen(port, () => {
   console.log(`Servidor BFF rodando em http://localhost:${port}`);
 });
-//pontoaa
+//ponto
